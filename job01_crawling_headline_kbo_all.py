@@ -24,7 +24,7 @@ category_url = [
     'doosanbears_new1'  # 두산 베어스
 ]
 
-for j in range(5, len(category_url)):  # 인덱스 5부터 시작
+for j in range(0, 5):  # 인덱스 5부터 시작
     # 제목을 저장할 리스트
     titles = []
     # 몇 페이지부터 몇 페이지까지
