@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import time
+import re
 
 BASE_URL = "https://gall.dcinside.com/board/lists"
 
@@ -10,7 +11,7 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
 }
 
-category = ['KIA', 'SAMSUNG', 'KIWOOM', 'LG', 'LOTTE', 'HANWHA', 'SSG','NC', 'KT', 'DOOSAN']
+category = ['KIA', 'SAMSUNG', 'KIWOOM', 'LG', 'LOTTE', 'HANWHA', 'SSG', 'NC', 'KT', 'DOOSAN']
 category_url = [
     'tigers_new2',  # 기아 타이거즈
     'samsunglions_new',  # 삼성 라이온즈
@@ -24,7 +25,7 @@ category_url = [
     'doosanbears_new1'  # 두산 베어스
 ]
 
-for j in range(0, 5):  # 인덱스 5부터 시작
+for j in range(0,1):  # 인덱스 0부터 4까지
     # 제목을 저장할 리스트
     titles = []
     # 몇 페이지부터 몇 페이지까지
@@ -44,17 +45,23 @@ for j in range(0, 5):  # 인덱스 5부터 시작
             # 제목 추출
             title_tag = tr_item.find('a', href=True)
             if title_tag:
-                title = title_tag.text.strip()  # 제목 텍스트 가져오기
-                print(title)    # 제목
-                # print("주소: ", title_tag['href'])
-                titles.append({'title': title})
+                try:
+                    title = title_tag.text.strip()  # 제목 텍스트 가져오기
+                    title = re.compile('[^가-힣 ]').sub(' ', title)  # 한글과 띄어쓰기만 남기기
+                    # titles.append({'title': title})
+                    print(f"{title},{category[j]}")
+                except:
+                    print(f"Error extracting title from row {i}: {e}")
 
         time.sleep(1)  # 요청 간 간격을 두기 위해 대기
-        # 데이터프레임 생성
-        df_titles = pd.DataFrame(titles)
-        # 결과 출력
-        print(df_titles.head())
-        # CSV 파일로 저장
-        df_titles.to_csv('./crawling_data/dcinside_{}_titles.csv'.format(category[j]), index=False)  # 현재 날짜로 저장
+
+    # 데이터프레임 생성
+    df_titles = pd.DataFrame(titles)
+
+    # 결과 출력
+    print(df_titles.head())
+
+    # CSV 파일로 저장
+    df_titles.to_csv('./crawling_data/dcinside_{}_titles.csv'.format(category[j]), index=False)  # 현재 날짜로 저장
 
 print("크롤링 완료!")
