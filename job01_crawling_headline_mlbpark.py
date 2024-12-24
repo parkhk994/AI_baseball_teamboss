@@ -5,7 +5,10 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 import pandas as pd
+import re
 
+category = ['KIA', 'SAMSUNG', 'KIWOOM', 'LG', 'LOTTE', 'HANWHA', 'SSG', 'NC', 'KT', 'DOOSAN']
+category_url = ['KIA', '삼성', '키움', 'LG', '롯데', '한화', 'SSG', 'NC', 'kt', '두산']
 
 def crawl_mlbpark_kia_posts():
     # Chrome 옵션 설정
@@ -38,6 +41,7 @@ def crawl_mlbpark_kia_posts():
         for element in title_elements:
             try:
                 title = element.text.strip()
+                title = re.compile('[^가-힣 ]').sub(' ', title)  # 한글과 띄어쓰기만 남기
                 titles.append(title)
             except Exception as e:
                 print(f"제목 추출 중 오류: {e}")
