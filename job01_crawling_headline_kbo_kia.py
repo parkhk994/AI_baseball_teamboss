@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import time
+import re  # 정규식 모듈
 
 BASE_URL = "https://gall.dcinside.com/board/lists"
 
@@ -19,6 +20,10 @@ ids = [
 
 # 전체 데이터 저장
 all_titles = []
+
+# 한글만 추출하는 함수
+def extract_korean(text):
+    return re.sub(r'[^가-힣\s]', ' ', text)  # 한글과 공백만 남기고 나머지는 제거
 
 # 카테고리별로 크롤링
 for category, gall_id in zip(categories, ids):
@@ -39,7 +44,8 @@ for category, gall_id in zip(categories, ids):
                 # 제목 추출
                 title_tag = tr_item.find('a', href=True)
                 if title_tag:
-                    title = title_tag.text.strip()  # 제목 텍스트 가져오기
+                    raw_title = title_tag.text.strip()  # 원본 제목
+                    title = extract_korean(raw_title)  # 한글만 남기기
                     print(f"{title}, {category}")
                     all_titles.append({'Title': title, 'Category': category})
         else:
