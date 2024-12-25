@@ -30,7 +30,7 @@ def crawl_mlbpark_posts():
     options.add_argument('--disable-extensions')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-
+#
     # 웹드라이버 설정
     service = ChromeService(executable_path=ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
@@ -95,7 +95,7 @@ def crawl_mlbpark_posts():
     except Exception as e:
         print(f"크롤링 중 오류 발생: {e}")
 
-    finally:zx
+    finally:
         #브라우저 종료
         driver.quit()
 

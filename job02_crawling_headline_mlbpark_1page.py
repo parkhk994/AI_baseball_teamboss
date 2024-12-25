@@ -79,7 +79,7 @@ def crawl_mlbpark_303page():
     except Exception as e:
         print(f"크롤링 중 오류 발생: {e}")
         return None
-
+#
     finally:
         # 브라우저 종료
         driver.quit()
