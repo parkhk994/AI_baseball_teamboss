@@ -19,7 +19,7 @@ df.reset_index(drop=True, inplace=True)
 
 print(df.head())
 df.info()
-
+#
 print(df['category'].value_counts())
 
 # 공백 제거

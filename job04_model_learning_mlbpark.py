@@ -13,7 +13,7 @@ Y_test = np.load('./crawling_data/MP_KBO_Y_test_wordsize_10828_max_37.npy', allo
 
 print(X_train.shape, Y_train.shape)
 print(X_test.shape, Y_test.shape)
-
+#
 # 모델 정의
 model = Sequential()
 model.add(Embedding(10828, 300, input_length=37))

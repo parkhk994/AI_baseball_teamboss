@@ -83,6 +83,6 @@ def crawl_mlbpark_303page():
     finally:
         # 브라우저 종료
         driver.quit()
-
+#
 # 크롤링 실행 (303 페이지)
 crawl_mlbpark_303page()

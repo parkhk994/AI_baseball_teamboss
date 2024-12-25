@@ -7,7 +7,7 @@ import pickle  # 객체 직렬화를 위한 pickle 모듈 임포트
 from konlpy.tag import Okt  # 한국어 형태소 분석을 위한 Okt 클래스 임포트
 from tensorflow.keras.preprocessing.text import Tokenizer  # 텍스트 전처리를 위한 Tokenizer 클래스 임포트
 from tensorflow.keras.preprocessing.sequence import pad_sequences  # 시퀀스 패딩을 위한 함수 임포트
-
+#
 # CSV 파일에서 데이터프레임 읽기
 df = pd.read_csv('crawling_data/mlbpark_titles_with_category.csv')
 df.drop_duplicates(inplace=True)      # 중복제거 (주석 처리됨)
