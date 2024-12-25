@@ -95,7 +95,7 @@ def crawl_mlbpark_posts():
     except Exception as e:
         print(f"크롤링 중 오류 발생: {e}")
 
-    finally:
+    finally:zx
         #브라우저 종료
         driver.quit()
 
