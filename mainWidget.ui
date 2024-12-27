@@ -1,81 +1,213 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>798</width>
-    <height>668</height>
+    <width>450</width>
+    <height>652</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>KBO Fan Classifier</string>
   </property>
-  <widget class="QLabel" name="lbl_image">
+  <property name="styleSheet">
+   <string notr="true">
+QMainWindow {
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
+
+QLabel {
+    color: #333;
+    font-weight: bold;
+}
+
+QTextEdit {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+QPushButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+QPushButton:hover {
+    background-color: #0056b3;
+}
+
+QProgressBar {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+}
+
+QProgressBar::chunk {
+    background-color: #28a745;
+    width: 10px;
+    margin: 0.5px;
+}
+
+QComboBox {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 5px;
+    font-size: 14px;
+}
+   </string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="titleLabel">
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>KBO 팬 분류기</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="instructionLabel">
+      <property name="text">
+       <string>분류가 필요한 댓글을 적고 확인 버튼을 눌러주세요.</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTextEdit" name="inputTextEdit">
+      <property name="placeholderText">
+       <string>Type your text here...</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="predictButton">
+      <property name="text">
+       <string>확인</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="resultFrame">
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="predictionLabel">
+         <property name="text">
+          <string>예측 된 팀 -</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QProgressBar" name="confidenceProgressBar">
+         <property name="value">
+          <number>0</number>
+         </property>
+         <property name="format">
+          <string>Confidence: %p%</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="teamLogoLabel">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>200</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Team Logo</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>230</y>
-     <width>711</width>
-     <height>271</height>
+     <x>0</x>
+     <y>0</y>
+     <width>450</width>
+     <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionClear"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionClear">
    <property name="text">
-    <string/>
+    <string>Clear</string>
    </property>
-   <property name="pixmap">
-    <pixmap>../datasets/train/cat.73.jpg</pixmap>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
    </property>
-   <property name="scaledContents">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QLabel" name="lbl_predict">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>540</y>
-     <width>701</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>24</pointsize>
-    </font>
-   </property>
+  </action>
+  <action name="actionExit">
    <property name="text">
-    <string>어느 팀일까?</string>
+    <string>Exit</string>
    </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
    </property>
-  </widget>
-  <widget class="QTextEdit" name="textEdit_repl">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>60</y>
-     <width>641</width>
-     <height>81</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btn_save">
-   <property name="geometry">
-    <rect>
-     <x>360</x>
-     <y>170</y>
-     <width>75</width>
-     <height>23</height>
-    </rect>
-   </property>
+  </action>
+  <action name="actionAbout">
    <property name="text">
-    <string>확인</string>
+    <string>About</string>
    </property>
-  </widget>
+  </action>
  </widget>
  <resources/>
  <connections/>
